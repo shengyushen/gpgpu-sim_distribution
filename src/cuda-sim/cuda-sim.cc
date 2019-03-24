@@ -1318,6 +1318,14 @@ void function_info::ptx_jit_config(std::map<unsigned long long, size_t> mallocPt
     char * wys_exec_path = getenv("WYS_EXEC_PATH");
     assert(wys_exec_path!=NULL);
     std::string command = std::string("mkdir ") + gpgpusim_path + "/debug_tools/WatchYourStep/data";
+		//ssy add this to first creat the data dir
+		const char *cstr_ssy = command.c_str();
+    system(cstr_ssy);
+		char  wyscmd[1024];
+		sprintf(wyscmd,"mkdir %s",wys_exec_path);
+		system(wyscmd); 
+		//end of ssy
+
     std::string filename(std::string(gpgpusim_path) + "/debug_tools/WatchYourStep/data/params.config" + std::to_string(counter));
 
     //initialize paramList

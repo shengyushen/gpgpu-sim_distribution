@@ -173,6 +173,7 @@ symbol_table *init_parser( const char *ptx_filename )
    init_instruction_state();
 
    ptx_in = fopen(ptx_filename, "r");
+	//ssy : this is the real parser ptx_parse
    ptx_parse();
    fclose(ptx_in);
    return g_global_symbol_table;

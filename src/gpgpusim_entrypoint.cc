@@ -66,6 +66,7 @@ static void print_simulation_time();
 
 void *gpgpu_sim_thread_sequential(void*)
 {
+	printf("SSY : gpgpu_sim_thread_sequential\n");
    // at most one kernel running at a time
    bool done;
    do {
@@ -101,6 +102,7 @@ static void termination_callback()
 
 void *gpgpu_sim_thread_concurrent(void*)
 {
+	printf("SSY : gpgpu_sim_thread_concurrent\n");
     atexit(termination_callback);
     // concurrent kernel execution simulation thread
     do {
@@ -144,7 +146,9 @@ void *gpgpu_sim_thread_concurrent(void*)
             }
 
             //performance simulation
+//								printf("SSY : testing  active \n");
             if( g_the_gpu->active() ) {
+//								printf("SSY : active \n");
                 g_the_gpu->cycle();
                 sim_cycles = true;
                 g_the_gpu->deadlock_check();
@@ -163,6 +167,7 @@ void *gpgpu_sim_thread_concurrent(void*)
            printf("GPGPU-Sim: ** STOP simulation thread (no work) **\n");
            fflush(stdout);
         }
+				printf("SSY : sim_cycles %s\n",sim_cycles?"true":"false");
         if(sim_cycles) {
             g_the_gpu->print_stats();
             g_the_gpu->update_stats();

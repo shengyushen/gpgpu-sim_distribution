@@ -1535,6 +1535,7 @@ unsigned long long g_single_step=0; // set this in gdb to single step the pipeli
 void gpgpu_sim::cycle()
 {
    int clock_mask = next_clock_domain();
+//		printf("ssy 1\n");
 
    if (clock_mask & CORE ) {
        // shader core loading (pop from ICNT into core) follows CORE clock
@@ -1575,6 +1576,7 @@ void gpgpu_sim::cycle()
       }
    }
 
+//		printf("ssy 2\n");
    // L2 operations follow L2 clock domain
    unsigned partiton_reqs_in_parallel_per_cycle = 0;
    if (clock_mask & L2) {
@@ -1605,6 +1607,7 @@ void gpgpu_sim::cycle()
       icnt_transfer();
    }
 
+//		printf("ssy 3\n");
    if (clock_mask & CORE) {
       // L1 cache + shader core pipeline stages
       m_power_stats->pwr_mem_stat->core_cache_stats[CURRENT_STAT_IDX].clear();
@@ -1679,11 +1682,13 @@ void gpgpu_sim::cycle()
          }
       }
 
+//		printf("ssy 3.1\n");
       if (!(gpu_sim_cycle % m_config.gpu_stat_sample_freq)) {
          time_t days, hrs, minutes, sec;
          time_t curr_time;
          time(&curr_time);
          unsigned long long  elapsed_time = MAX(curr_time - g_simulation_starttime, 1);
+//		printf("ssy 3.2\n");
          if ( (elapsed_time - last_liveness_message_time) >= m_config.liveness_message_freq && DTRACE(LIVENESS) ) {
             days    = elapsed_time/(3600*24);
             hrs     = elapsed_time/3600 - 24*days;
@@ -1706,7 +1711,9 @@ void gpgpu_sim::cycle()
          }
          visualizer_printstat();
          m_memory_stats->memlatstat_lat_pw();
+//		printf("ssy 3.2.1\n");
          if (m_config.gpgpu_runtime_stat && (m_config.gpu_runtime_stat_flag != 0) ) {
+//		printf("ssy 3.2.1.1\n");
             if (m_config.gpu_runtime_stat_flag & GPU_RSTAT_BW_STAT) {
                for (unsigned i=0;i<m_memory_config->m_n_mem;i++) 
                   m_memory_partition_unit[i]->print_stat(stdout);

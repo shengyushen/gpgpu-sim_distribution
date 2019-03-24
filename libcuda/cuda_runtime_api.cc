@@ -258,7 +258,12 @@ struct CUctx_st {
 	void add_ptxinfo( const char *deviceFun, const struct gpgpu_ptx_sim_info &info )
 	{
 		symbol *s = m_code[m_last_fat_cubin_handle]->lookup(deviceFun);
-		assert( s != NULL );
+		//assert( s != NULL );
+		if( s == NULL ) {
+			printf("FATAL ssy : add_ptxinfo deviceFun %s\n",deviceFun);
+			assert(0);
+		}
+
 		function_info *f = s->get_pc();
 		assert( f != NULL );
 		f->set_kernel_info(info);
@@ -1431,6 +1436,7 @@ __host__ cudaError_t CUDARTAPI cudaSetupArgument(const void *arg, size_t size, s
 
 __host__ cudaError_t CUDARTAPI cudaLaunch( const char *hostFun )
 {
+	printf("SSY : cudaLaunch \n");
 	if(g_debug_execution >= 3){
 	    announce_call(__my_func__);
     }

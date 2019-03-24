@@ -307,6 +307,7 @@ public:
         gpu_stat_sample_freq = 10000;
         gpu_runtime_stat_flag = 0;
         sscanf(gpgpu_runtime_stat, "%d:%x", &gpu_stat_sample_freq, &gpu_runtime_stat_flag);
+				printf("SSY gpgpu_runtime_stat %d:%x\n",gpu_stat_sample_freq,gpu_runtime_stat_flag);
         m_shader_config.init();
         ptx_set_tex_cache_linesize(m_shader_config.m_L1T_config.get_line_sz());
         m_memory_config.init();

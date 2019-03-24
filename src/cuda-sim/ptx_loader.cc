@@ -160,6 +160,7 @@ char* gpgpu_ptx_sim_convert_ptx_and_sass_to_ptxplus(const std::string ptxfilenam
 
 symbol_table *gpgpu_ptx_sim_load_ptx_from_string( const char *p, unsigned source_num )
 {
+		printf("SSY : gpgpu_ptx_sim_load_ptx_from_string p %s source_num %d\n",p,source_num);
     char buf[1024];
     snprintf(buf,1024,"_%u.ptx", source_num );
     if( g_save_embedded_ptx ) {
@@ -343,6 +344,7 @@ void gpgpu_ptx_info_load_from_filename( const char *filename, unsigned sm_versio
 	if( result != 0 ) {
 		printf("GPGPU-Sim PTX: ERROR ** while loading PTX (b) %d\n", result);
 		printf("               Ensure ptxas is in your path.\n");
+		printf("ptxas 1 command is :%s\n",buff);
 		exit(1);
 	}
 
@@ -423,6 +425,7 @@ void gpgpu_ptxinfo_load_from_string( const char *p_for_info, unsigned source_num
 	    if (result != 0) {
 		printf("GPGPU-Sim PTX: ERROR ** while loading PTX (b) %d\n", result);
 		printf("               Ensure ptxas is in your path.\n");
+		printf("ptxas 2 command is :%s\n",commandline);
 		exit(1);
 	    }
     	}
@@ -475,6 +478,7 @@ void gpgpu_ptxinfo_load_from_string( const char *p_for_info, unsigned source_num
 	if( result != 0 ) {
 		printf("GPGPU-Sim PTX: ERROR ** while loading PTX (b) %d\n", result);
 		printf("               Ensure ptxas is in your path.\n");
+		printf("ptxas 3 command is :%s\n",commandline);
 		exit(1);
 	}
     }
